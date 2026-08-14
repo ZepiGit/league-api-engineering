@@ -22,6 +22,17 @@ It acts as an engineering companion that helps an agent choose an appropriate so
 
 ---
 
+## 📱 Was man mit dem Skill bauen kann
+
+Der Skill hilft KI-Agenten, stabile und korrekte Architektur-Entscheidungen bei der Integration von League of Legends APIs zu treffen. 
+Hier ist ein Beispiel einer Companion-App, die durch strukturierte Planung mit Hilfe der Skill-Richtlinien umgesetzt wurde:
+
+<p float="left">
+  <img src="assets/example1.webp" width="400" />
+  <img src="assets/example2.webp" width="400" /> 
+</p>
+---
+
 ## 🎯 What it covers
 
 - 🔌 **Source Selection:** Riot Web APIs, Data Dragon, LCU, Live Client Data, and CommunityDragon.
