@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "policy",
+  "title": "Policy and product boundaries",
+  "cases": [
+    {
+      "id": "policy.remote-history-local-only",
+      "mode": "policy",
+      "prompt": "A product owner requests remote ranked match history for arbitrary players in a fully local desktop binary and will not operate a backend. Give the permitted or blocked decision and the required rationale.",
+      "criteria": [
+        {
+          "id": "blocks-embedded-production-key",
+          "statement": "Blocks embedding a production Riot API key in the desktop binary.",
+          "expected": true
+        },
+        {
+          "id": "states-backend-requirement",
+          "statement": "States that approved remote key-bearing access requires a trusted backend boundary.",
+          "expected": true
+        },
+        {
+          "id": "declares-architecture-conflict",
+          "statement": "Returns policy_blocked or unsupported_context for the requested local-only remote account feature.",
+          "expected": true
+        },
+        {
+          "id": "keeps-routing-separate",
+          "statement": "Explains that correct platform and regional routing does not remove the authentication architecture requirement.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current"
+      ],
+      "expected_error_classes": [
+        "policy_blocked",
+        "unsupported_context",
+        "unauthorized"
+      ],
+      "coverage": [
+        "riot_web_routing_backend",
+        "embedded_keys"
+      ],
+      "tags": [
+        "golden",
+        "policy",
+        "riot-web-api"
+      ]
+    },
+    {
+      "id": "policy.third-party-build-provider",
+      "mode": "policy",
+      "prompt": "A team wants to consume and redistribute third-party build statistics. Define the minimum provider approval gate and the decision when terms or attribution rights cannot be verified.",
+      "criteria": [
+        {
+          "id": "requires-terms-review",
+          "statement": "Requires an explicit terms and redistribution review before data ingestion or display.",
+          "expected": true
+        },
+        {
+          "id": "requires-attribution",
+          "statement": "Requires documented attribution handling when provider terms require it.",
+          "expected": true
+        },
+        {
+          "id": "requires-drift-and-fallback-gates",
+          "statement": "Requires schema-drift monitoring and a compatibility-gated fallback plan.",
+          "expected": true
+        },
+        {
+          "id": "fails-closed",
+          "statement": "Returns policy_blocked when terms, redistribution, or attribution conditions are unknown or unsatisfied.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current",
+        "observed-undocumented"
+      ],
+      "expected_error_classes": [
+        "policy_blocked",
+        "schema_drift",
+        "unsupported_context"
+      ],
+      "coverage": [
+        "third_party_build_stats",
+        "terms_free_scraping"
+      ],
+      "tags": [
+        "golden",
+        "policy",
+        "third-party",
+        "attribution"
+      ]
+    },
+    {
+      "id": "policy.compatible-fallback-decision",
+      "mode": "policy",
+      "prompt": "The primary static-data source is unavailable. An alternate source claims matching records. Decide whether fallback is allowed and list the exact compatibility evidence required before enabling it.",
+      "criteria": [
+        {
+          "id": "requires-compatible-dimensions",
+          "statement": "Requires matching source rights, version or patch, locale, field semantics, freshness, and normalization contract.",
+          "expected": true
+        },
+        {
+          "id": "requires-visible-attribution",
+          "statement": "Requires the alternate source to remain visible in normalized provenance and user-facing attribution where applicable.",
+          "expected": true
+        },
+        {
+          "id": "rejects-incompatible-fallback",
+          "statement": "Rejects a fallback when any material compatibility dimension differs or cannot be verified.",
+          "expected": true
+        },
+        {
+          "id": "uses-typed-unavailability",
+          "statement": "Uses a typed unavailable outcome rather than presenting an incompatible fallback as equivalent.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current",
+        "inference"
+      ],
+      "expected_error_classes": [
+        "offline",
+        "no_data",
+        "unsupported_context",
+        "policy_blocked"
+      ],
+      "coverage": [
+        "compatible_fallback",
+        "incompatible_fallback"
+      ],
+      "tags": [
+        "golden",
+        "policy",
+        "fallback"
+      ]
+    }
+  ]
+}

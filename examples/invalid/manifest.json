@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {
+      "artifact": "embedded-riot-key/artifact.json",
+      "expected_code": "secret",
+      "id": "embedded-riot-key",
+      "kind": "security"
+    },
+    {
+      "artifact": "remote-invalid-cert/artifact.json",
+      "expected_code": "remote_tls",
+      "id": "remote-invalid-cert",
+      "kind": "security"
+    },
+    {
+      "artifact": "incompatible-fallback/artifact.json",
+      "expected_code": "incompatible_fallback",
+      "id": "incompatible-fallback",
+      "kind": "contract"
+    },
+    {
+      "artifact": "vanguard-unsafe-technique/artifact.json",
+      "expected_code": "hard_gate",
+      "id": "vanguard-unsafe-technique",
+      "kind": "source"
+    },
+    {
+      "artifact": "malformed-cache-key/artifact.json",
+      "expected_code": "cache_key",
+      "id": "malformed-cache-key",
+      "kind": "contract"
+    },
+    {
+      "artifact": "stale-review/artifact.json",
+      "expected_code": "stale",
+      "id": "stale-review",
+      "kind": "freshness"
+    }
+  ],
+  "schema_version": "1.0"
+}

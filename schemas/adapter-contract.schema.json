@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "adapter-contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_id", "version", "adapter_id", "source", "authentication", "routing", "normalization", "errors", "cache", "fallbacks", "fixtures", "policy_review"],
+  "properties": {
+    "schema_id": {"const": "adapter-contract"},
+    "version": {"const": "1.0.0"},
+    "adapter_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,63}$"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "authority", "evidence_class", "endpoint_family", "urls"],
+      "properties": {
+        "class": {"enum": ["local_client", "active_match", "static_data", "remote_account", "aggregate_statistics"]},
+        "authority": {"enum": ["first_party", "local_client", "community", "third_party"]},
+        "evidence_class": {"enum": ["verified-current", "observed-undocumented", "historical", "inference"]},
+        "endpoint_family": {"type": "string", "minLength": 1, "maxLength": 120},
+        "urls": {"type": "array", "minItems": 1, "items": {"type": "string", "format": "uri"}}
+      }
+    },
+    "authentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "secret_source", "persist_secrets", "log_secrets", "loopback_tls_only"],
+      "properties": {
+        "mode": {"enum": ["none", "runtime_env", "local_client_runtime", "user_supplied"]},
+        "secret_source": {"enum": ["none", "environment", "local_client", "user_input"]},
+        "persist_secrets": {"const": false},
+        "log_secrets": {"const": false},
+        "loopback_tls_only": {"type": "boolean"}
+      }
+    },
+    "routing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["platform_mapping", "regional_mapping", "locale_mapping", "queue_mapping"],
+      "properties": {
+        "platform_mapping": {"type": "object", "minProperties": 1},
+        "regional_mapping": {"type": "object", "minProperties": 1},
+        "locale_mapping": {"type": "object"},
+        "queue_mapping": {"type": "object"}
+      }
+    },
+    "normalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["output_schema", "provenance_fields", "no_data_semantics"],
+      "properties": {
+        "output_schema": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,63}$"},
+        "provenance_fields": {"type":"array","minItems":3,"uniqueItems":true,"items":{"type":"string","enum":["source_id","retrieved_at","patch","locale","region","evidence_class"]}},
+        "no_data_semantics": {"enum": ["explicit_no_data", "unsupported_context"]}
+      }
+    },
+    "errors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classes", "retryable"],
+      "properties": {
+        "classes": {"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","enum":["offline","unauthorized","rate_limited","not_found","no_data","unsupported_context","transport","http_status","parse","schema_drift","policy_blocked"]}},
+        "retryable": {"type":"array","uniqueItems":true,"items":{"type":"string","enum":["offline","rate_limited","transport","http_status"]}}
+      }
+    },
+    "cache": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key_dimensions", "ttl_seconds", "stale_policy", "invalidation"],
+      "properties": {
+        "key_dimensions": {"type":"array","minItems":3,"uniqueItems":true,"items":{"type":"string","enum":["adapter_id","patch","locale","queue","lane","tier","region","platform","account_scope"]}},
+        "ttl_seconds": {"type": "integer", "minimum": 0, "maximum": 2592000},
+        "stale_policy": {"enum": ["reject", "serve_with_age", "revalidate_before_use"]},
+        "invalidation": {"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","enum":["patch_change","locale_change","queue_change","region_change","manual"]}}
+      }
+    },
+    "fallbacks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["adapter_id", "compatible", "attribution", "population", "reason"],
+        "properties": {
+          "adapter_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,63}$"},
+          "compatible": {"type": "boolean"},
+          "attribution": {"type": "string", "minLength": 3, "maxLength": 160},
+          "population": {"type": "string", "minLength": 3, "maxLength": 160},
+          "reason": {"type": "string", "minLength": 3, "maxLength": 240}
+        }
+      }
+    },
+    "fixtures": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest", "fingerprint"],
+      "properties": {
+        "manifest": {"type": "string", "pattern": "^[a-zA-Z0-9_./-]+\\.json$"},
+        "fingerprint": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "policy_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewed_at", "terms_url", "attribution_required", "redistribution_verified"],
+      "properties": {
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "terms_url": {"type": "string", "format": "uri"},
+        "attribution_required": {"type": "boolean"},
+        "redistribution_verified": {"type": "boolean"}
+      }
+    }
+  }
+}

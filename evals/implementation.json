@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "implementation",
+  "title": "Implementation planning",
+  "cases": [
+    {
+      "id": "implementation.lcu-champ-select-adapter",
+      "mode": "implement",
+      "prompt": "Implement a production adapter plan for locally available champion-select state. Include a typed contract, loopback transport boundary, cache behavior, fixtures, and canary policy.",
+      "criteria": [
+        {
+          "id": "typed-contract",
+          "statement": "Defines typed error outcomes including offline, unauthorized, parse, schema_drift, and policy_blocked rather than using an untyped catch-all.",
+          "expected": true
+        },
+        {
+          "id": "isolated-loopback-client",
+          "statement": "Uses a loopback-only client with in-memory LCU authentication and does not permit that TLS behavior for remote requests.",
+          "expected": true
+        },
+        {
+          "id": "bounded-retry",
+          "statement": "Bounds retries to transient failures and excludes authorization, parse, schema drift, and policy failures from retries.",
+          "expected": true
+        },
+        {
+          "id": "fixture-contract",
+          "statement": "Plans sanitized fixture tests and an opt-in canary that reports schema drift without storing credentials or real match data.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "observed-undocumented"
+      ],
+      "expected_error_classes": [
+        "offline",
+        "unauthorized",
+        "transport",
+        "parse",
+        "schema_drift",
+        "policy_blocked"
+      ],
+      "coverage": [
+        "lcu_champ_select",
+        "loopback_tls_isolation",
+        "fixture_tests"
+      ],
+      "tags": [
+        "golden",
+        "implementation",
+        "lcu"
+      ]
+    },
+    {
+      "id": "implementation.third-party-build-stats",
+      "mode": "implement",
+      "prompt": "Implement a normalized third-party build-statistics adapter with an approved provider assessment. Include terms, attribution, population labels, cache dimensions, compatibility gates, fixtures, and fallback behavior.",
+      "criteria": [
+        {
+          "id": "provider-gates",
+          "statement": "Requires documented terms, attribution, redistribution review, schema-drift handling, and a compatibility decision before use.",
+          "expected": true
+        },
+        {
+          "id": "population-provenance",
+          "statement": "Preserves provider, patch, region, tier, queue, lane, and sample-window population in normalized provenance.",
+          "expected": true
+        },
+        {
+          "id": "complete-cache-key",
+          "statement": "Includes provider and all response-changing population dimensions in the cache key with explicit TTL and stale policy.",
+          "expected": true
+        },
+        {
+          "id": "compatible-fallback-only",
+          "statement": "Allows fallback only after an explicit compatibility matrix and keeps fallback attribution visible.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current",
+        "observed-undocumented"
+      ],
+      "expected_error_classes": [
+        "rate_limited",
+        "no_data",
+        "parse",
+        "schema_drift",
+        "policy_blocked"
+      ],
+      "coverage": [
+        "third_party_build_stats",
+        "compatible_fallback"
+      ],
+      "tags": [
+        "golden",
+        "implementation",
+        "third-party",
+        "build-stats"
+      ]
+    },
+    {
+      "id": "implementation.compatible-static-fallback",
+      "mode": "implement",
+      "prompt": "Design fallback behavior when a versioned static-data provider is temporarily unavailable and an approved mirror contains the same version, locale, fields, terms, and attribution requirements.",
+      "criteria": [
+        {
+          "id": "explicit-compatibility",
+          "statement": "Verifies version, locale, normalized fields, terms, attribution, and freshness compatibility before using the mirror.",
+          "expected": true
+        },
+        {
+          "id": "visible-provenance",
+          "statement": "Records the mirror as the actual source in provenance and does not claim the primary source supplied the value.",
+          "expected": true
+        },
+        {
+          "id": "bounded-failure-handling",
+          "statement": "Uses bounded transient retries and returns a typed failure if the approved fallback cannot satisfy the contract.",
+          "expected": true
+        },
+        {
+          "id": "fixture-verification",
+          "statement": "Validates equivalent sanitized fixtures before enabling the compatible fallback.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current"
+      ],
+      "expected_error_classes": [
+        "offline",
+        "transport",
+        "schema_drift",
+        "policy_blocked"
+      ],
+      "coverage": [
+        "compatible_fallback",
+        "data_dragon_versioning"
+      ],
+      "tags": [
+        "golden",
+        "implementation",
+        "fallback"
+      ]
+    }
+  ]
+}

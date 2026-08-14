@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-assessment.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_id", "version", "source_id", "source_class", "evidence_class", "hard_gates", "dimensions", "review"],
+  "properties": {
+    "schema_id": {"const": "source-assessment"},
+    "version": {"const": "1.0.0"},
+    "source_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,63}$"},
+    "source_class": {"enum": ["local_client", "active_match", "static_data", "remote_account", "aggregate_statistics", "unsupported"]},
+    "evidence_class": {"enum": ["verified-current", "observed-undocumented", "historical", "inference"]},
+    "source_urls": {"type": "array", "minItems": 1, "items": {"type": "string", "format": "uri"}},
+    "hard_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requires_embedded_secret", "unsafe_technique", "unsupported_data", "redistribution_unverified"],
+      "properties": {
+        "requires_embedded_secret": {"type": "boolean"},
+        "unsafe_technique": {"type": "boolean"},
+        "unsupported_data": {"type": "boolean"},
+        "redistribution_unverified": {"type": "boolean"}
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority", "authentication_feasibility", "routing", "local_compatibility", "latency", "stability", "patch_coverage", "terms", "rate_limits", "privacy", "attribution", "failure_behavior"],
+      "properties": {
+        "authority": {"type": "number", "minimum": 0, "maximum": 5},
+        "authentication_feasibility": {"type": "number", "minimum": 0, "maximum": 5},
+        "routing": {"type": "number", "minimum": 0, "maximum": 5},
+        "local_compatibility": {"type": "number", "minimum": 0, "maximum": 5},
+        "latency": {"type": "number", "minimum": 0, "maximum": 5},
+        "stability": {"type": "number", "minimum": 0, "maximum": 5},
+        "patch_coverage": {"type": "number", "minimum": 0, "maximum": 5},
+        "terms": {"type": "number", "minimum": 0, "maximum": 5},
+        "rate_limits": {"type": "number", "minimum": 0, "maximum": 5},
+        "privacy": {"type": "number", "minimum": 0, "maximum": 5},
+        "attribution": {"type": "number", "minimum": 0, "maximum": 5},
+        "failure_behavior": {"type": "number", "minimum": 0, "maximum": 5}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewed_at", "terms_url"],
+      "properties": {
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "terms_url": {"type": "string", "format": "uri"}
+      }
+    },
+    "recommendation": {"enum": ["approved", "conditional", "rejected"]}
+  }
+}

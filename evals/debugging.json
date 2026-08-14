@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "debugging",
+  "title": "Debugging",
+  "cases": [
+    {
+      "id": "debugging.live-client-offline",
+      "mode": "debug",
+      "prompt": "The active-match panel repeatedly reports a connection error before a game starts and sometimes while a match is loading. Diagnose and correct the behavior without treating normal local endpoint absence as an application crash.",
+      "criteria": [
+        {
+          "id": "classifies-normal-absence",
+          "statement": "Classifies unavailable Live Client Data as offline or unsupported_context according to match state.",
+          "expected": true
+        },
+        {
+          "id": "bounded-backoff",
+          "statement": "Uses bounded backoff for transient endpoint absence instead of rapid unbounded polling or blind retries.",
+          "expected": true
+        },
+        {
+          "id": "preserves-real-errors",
+          "statement": "Keeps parse and schema-drift failures distinguishable from ordinary offline state.",
+          "expected": true
+        },
+        {
+          "id": "safe-boundary",
+          "statement": "Does not propose process access, injection, hooks, or memory scanning to determine game state.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current"
+      ],
+      "expected_error_classes": [
+        "offline",
+        "unsupported_context",
+        "transport",
+        "parse",
+        "schema_drift"
+      ],
+      "coverage": [
+        "live_client_active_match",
+        "bounded_retry"
+      ],
+      "tags": [
+        "golden",
+        "debugging",
+        "live-client-data"
+      ]
+    },
+    {
+      "id": "debugging.data-dragon-schema-drift",
+      "mode": "debug",
+      "prompt": "After a patch update, a static champion import succeeds at HTTP level but a formerly required field is absent. Diagnose the condition, preserve the prior valid cache safely, and define the correct fix evidence.",
+      "criteria": [
+        {
+          "id": "classifies-schema-drift",
+          "statement": "Classifies the changed required shape as schema_drift rather than no_data or a transient transport failure.",
+          "expected": true
+        },
+        {
+          "id": "no-blind-retry",
+          "statement": "Does not retry the same incompatible payload blindly.",
+          "expected": true
+        },
+        {
+          "id": "versioned-stale-policy",
+          "statement": "Keeps only a clearly labeled, version-matched prior cache when its documented stale policy permits it.",
+          "expected": true
+        },
+        {
+          "id": "fixture-fingerprint-fix",
+          "statement": "Updates sanitized fixtures and drift fingerprints only after evidence establishes the new documented contract.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current",
+        "historical"
+      ],
+      "expected_error_classes": [
+        "schema_drift",
+        "parse",
+        "no_data"
+      ],
+      "coverage": [
+        "data_dragon_versioning",
+        "schema_drift"
+      ],
+      "tags": [
+        "golden",
+        "debugging",
+        "static-data"
+      ]
+    },
+    {
+      "id": "debugging.third-party-population-mismatch",
+      "mode": "debug",
+      "prompt": "A build-statistics fallback made the UI show a global all-rank sample after the requested regional high-rank provider failed. Diagnose the regression and repair the fallback policy.",
+      "criteria": [
+        {
+          "id": "identifies-incompatibility",
+          "statement": "Identifies region, tier, and population differences as a material compatibility failure.",
+          "expected": true
+        },
+        {
+          "id": "rejects-silent-substitution",
+          "statement": "Rejects silently replacing the requested population with a materially different fallback.",
+          "expected": true
+        },
+        {
+          "id": "preserves-source-label",
+          "statement": "Requires visible provider and population provenance for any approved fallback.",
+          "expected": true
+        },
+        {
+          "id": "typed-failure-when-no-compatible-source",
+          "statement": "Returns no_data, unsupported_context, or policy_blocked when no compatible fallback exists instead of inventing equivalence.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "observed-undocumented",
+        "inference"
+      ],
+      "expected_error_classes": [
+        "no_data",
+        "unsupported_context",
+        "policy_blocked",
+        "schema_drift"
+      ],
+      "coverage": [
+        "third_party_build_stats",
+        "incompatible_fallback"
+      ],
+      "tags": [
+        "golden",
+        "debugging",
+        "fallback",
+        "third-party"
+      ]
+    }
+  ]
+}
