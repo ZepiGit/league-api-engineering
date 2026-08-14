@@ -1,0 +1,90 @@
+{
+  "adapter_id": "data-dragon-static",
+  "authentication": {
+    "log_secrets": false,
+    "loopback_tls_only": false,
+    "mode": "none",
+    "persist_secrets": false,
+    "secret_source": "none"
+  },
+  "cache": {
+    "invalidation": [
+      "patch_change",
+      "locale_change",
+      "manual"
+    ],
+    "key_dimensions": [
+      "adapter_id",
+      "patch",
+      "locale"
+    ],
+    "stale_policy": "serve_with_age",
+    "ttl_seconds": 86400
+  },
+  "errors": {
+    "classes": [
+      "transport",
+      "http_status",
+      "parse",
+      "schema_drift",
+      "no_data"
+    ],
+    "retryable": [
+      "transport",
+      "http_status"
+    ]
+  },
+  "fallbacks": [
+    {
+      "adapter_id": "different-population",
+      "attribution": "Unknown",
+      "compatible": false,
+      "population": "ranked-only dataset",
+      "reason": "Serve automatically and silently"
+    }
+  ],
+  "fixtures": {
+    "fingerprint": "868d2dd4df92d21827cf6be22611405c1cdf058f6a1d683d4e8832dac3cf429c",
+    "manifest": "examples/valid/fixture-manifest.json"
+  },
+  "normalization": {
+    "no_data_semantics": "explicit_no_data",
+    "output_schema": "champion-static-data",
+    "provenance_fields": [
+      "source_id",
+      "retrieved_at",
+      "patch",
+      "locale",
+      "evidence_class"
+    ]
+  },
+  "policy_review": {
+    "attribution_required": true,
+    "redistribution_verified": true,
+    "reviewed_at": "2026-08-13T00:00:00Z",
+    "terms_url": "https://developer.riotgames.com/docs/lol"
+  },
+  "routing": {
+    "locale_mapping": {
+      "en_US": "en_US"
+    },
+    "platform_mapping": {
+      "global": "cdn"
+    },
+    "queue_mapping": {},
+    "regional_mapping": {
+      "global": "cdn"
+    }
+  },
+  "schema_id": "adapter-contract",
+  "source": {
+    "authority": "first_party",
+    "class": "static_data",
+    "endpoint_family": "Data Dragon versioned CDN",
+    "evidence_class": "verified-current",
+    "urls": [
+      "https://ddragon.leagueoflegends.com/cdn/versions.json"
+    ]
+  },
+  "version": "1.0.0"
+}

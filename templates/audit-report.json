@@ -1,0 +1,21 @@
+{
+  "evidence_class": "verified-current",
+  "findings": [],
+  "generated_at": "2026-08-13T00:00:00Z",
+  "mode": "audit",
+  "report_id": "data-dragon-audit",
+  "review": {
+    "reviewed_at": "2026-08-13T00:00:00Z",
+    "reviewer_role": "engineering"
+  },
+  "schema_id": "audit-report",
+  "scope": "Versioned Data Dragon adapter contract",
+  "summary": {
+    "critical": 0,
+    "high": 0,
+    "info": 0,
+    "low": 0,
+    "medium": 0
+  },
+  "version": "1.0.0"
+}

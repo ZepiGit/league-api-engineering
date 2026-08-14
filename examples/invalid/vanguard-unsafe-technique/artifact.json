@@ -1,0 +1,35 @@
+{
+  "dimensions": {
+    "attribution": 5,
+    "authentication_feasibility": 5,
+    "authority": 5,
+    "failure_behavior": 4,
+    "latency": 4,
+    "local_compatibility": 5,
+    "patch_coverage": 4,
+    "privacy": 5,
+    "rate_limits": 4,
+    "routing": 5,
+    "stability": 4,
+    "terms": 5
+  },
+  "evidence_class": "verified-current",
+  "hard_gates": {
+    "redistribution_unverified": false,
+    "requires_embedded_secret": false,
+    "unsafe_technique": true,
+    "unsupported_data": false
+  },
+  "recommendation": "approved",
+  "review": {
+    "reviewed_at": "2026-08-13T00:00:00Z",
+    "terms_url": "https://developer.riotgames.com/docs/lol"
+  },
+  "schema_id": "source-assessment",
+  "source_class": "static_data",
+  "source_id": "data-dragon-static",
+  "source_urls": [
+    "https://ddragon.leagueoflegends.com/cdn/versions.json"
+  ],
+  "version": "1.0.0"
+}

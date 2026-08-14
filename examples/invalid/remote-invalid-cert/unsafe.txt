@@ -1,0 +1,1 @@
+Remote provider sets danger_accept_invalid_certs = true.

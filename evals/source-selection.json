@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.0",
+  "suite_id": "source-selection",
+  "title": "Source selection",
+  "cases": [
+    {
+      "id": "source-selection.lcu-champ-select",
+      "mode": "research",
+      "prompt": "A desktop League companion needs the current champion-select session for the locally running client. Select the source, explain authentication handling, availability semantics, and the safe transport boundary.",
+      "criteria": [
+        {
+          "id": "select-lcu",
+          "statement": "Selects the local League Client API for champion-select state rather than a Riot Web API.",
+          "expected": true
+        },
+        {
+          "id": "in-memory-auth",
+          "statement": "Keeps lockfile-derived Basic authentication in memory and prohibits persistence or logging of the password.",
+          "expected": true
+        },
+        {
+          "id": "offline-semantics",
+          "statement": "Classifies a missing, stale, or unreachable local client as offline rather than as an account-data failure.",
+          "expected": true
+        },
+        {
+          "id": "loopback-boundary",
+          "statement": "Limits any certificate exception to a validated loopback endpoint and does not reuse it for remote HTTPS.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "observed-undocumented"
+      ],
+      "expected_error_classes": [
+        "offline",
+        "unauthorized",
+        "parse",
+        "schema_drift"
+      ],
+      "coverage": [
+        "lcu_champ_select"
+      ],
+      "tags": [
+        "golden",
+        "lcu",
+        "champ-select"
+      ]
+    },
+    {
+      "id": "source-selection.live-client-active-match",
+      "mode": "research",
+      "prompt": "During an active League match, a companion must show the active player's current gold, items, and abilities. Select the source, define its normal unavailable state, and state the anti-cheat-safe implementation boundary.",
+      "criteria": [
+        {
+          "id": "select-live-client-data",
+          "statement": "Selects the Live Client Data API for active-match gold, item, and ability state.",
+          "expected": true
+        },
+        {
+          "id": "game-only-availability",
+          "statement": "States that the endpoint is game-scoped and that its absence is an offline or unsupported-context outcome, not a fatal error.",
+          "expected": true
+        },
+        {
+          "id": "no-key-required",
+          "statement": "Does not require or invent a Riot production API key for the local live-data endpoint.",
+          "expected": true
+        },
+        {
+          "id": "vanguard-safe-boundary",
+          "statement": "Uses normal local HTTP and window management only and rejects injection, hooks, memory access, and hidden-state extraction.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current"
+      ],
+      "expected_error_classes": [
+        "offline",
+        "no_data",
+        "unsupported_context",
+        "parse"
+      ],
+      "coverage": [
+        "live_client_active_match"
+      ],
+      "tags": [
+        "golden",
+        "live-client-data",
+        "active-match"
+      ]
+    },
+    {
+      "id": "source-selection.riot-web-routing-backend",
+      "mode": "research",
+      "prompt": "A local desktop product wants remote Match-V5 history for arbitrary players. Determine routing, authentication architecture, and the result when the product cannot use an approved backend.",
+      "criteria": [
+        {
+          "id": "regional-routing",
+          "statement": "Separates platform routing from Match-V5 regional routing before building a request.",
+          "expected": true
+        },
+        {
+          "id": "trusted-key-boundary",
+          "statement": "Requires production Riot credentials to remain at an approved trusted backend boundary rather than inside a desktop distributable.",
+          "expected": true
+        },
+        {
+          "id": "local-only-conflict",
+          "statement": "Returns a policy-blocked or unsupported-context decision when remote account data is requested without an approved key-bearing backend.",
+          "expected": true
+        },
+        {
+          "id": "no-client-key",
+          "statement": "Does not recommend embedding a production API key in the application.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current"
+      ],
+      "expected_error_classes": [
+        "unauthorized",
+        "policy_blocked",
+        "unsupported_context"
+      ],
+      "coverage": [
+        "riot_web_routing_backend"
+      ],
+      "tags": [
+        "golden",
+        "riot-web-api",
+        "routing",
+        "backend"
+      ]
+    },
+    {
+      "id": "source-selection.data-dragon-versioning",
+      "mode": "research",
+      "prompt": "A product needs champion names and images that stay coherent across patches and locales. Choose a source and specify version, locale, cache, provenance, fixture, and drift behavior.",
+      "criteria": [
+        {
+          "id": "select-static-source",
+          "statement": "Selects Data Dragon or another explicitly versioned static-data source rather than live account APIs.",
+          "expected": true
+        },
+        {
+          "id": "versioned-cache-key",
+          "statement": "Includes version and locale in cache identity and preserves the selected patch in normalized provenance.",
+          "expected": true
+        },
+        {
+          "id": "fixture-and-drift",
+          "statement": "Uses sanitized fixtures and reports an unexpected documented shape as schema drift.",
+          "expected": true
+        },
+        {
+          "id": "no-cross-version-mix",
+          "statement": "Does not silently combine static records from different patch versions.",
+          "expected": true
+        }
+      ],
+      "expected_evidence_classes": [
+        "verified-current"
+      ],
+      "expected_error_classes": [
+        "not_found",
+        "http_status",
+        "parse",
+        "schema_drift"
+      ],
+      "coverage": [
+        "data_dragon_versioning"
+      ],
+      "tags": [
+        "golden",
+        "data-dragon",
+        "versioning",
+        "static-data"
+      ]
+    }
+  ]
+}

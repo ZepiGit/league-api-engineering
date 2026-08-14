@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "audit-report.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_id", "version", "report_id", "mode", "generated_at", "evidence_class", "scope", "findings", "summary", "review"],
+  "properties": {
+    "schema_id": {"const": "audit-report"},
+    "version": {"const": "1.0.0"},
+    "report_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]{2,63}$"},
+    "mode": {"enum": ["implement", "audit", "debug", "research", "policy"]},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "evidence_class": {"enum": ["verified-current", "observed-undocumented", "historical", "inference"]},
+    "scope": {"type": "string", "minLength": 3, "maxLength": 500},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "severity", "title", "evidence", "recommendation"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]{2,63}$"},
+          "severity": {"enum": ["critical", "high", "medium", "low", "info"]},
+          "title": {"type": "string", "minLength": 3, "maxLength": 160},
+          "evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3, "maxLength": 500}},
+          "recommendation": {"type": "string", "minLength": 3, "maxLength": 500}
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["critical", "high", "medium", "low", "info"],
+      "properties": {
+        "critical": {"type": "integer", "minimum": 0},
+        "high": {"type": "integer", "minimum": 0},
+        "medium": {"type": "integer", "minimum": 0},
+        "low": {"type": "integer", "minimum": 0},
+        "info": {"type": "integer", "minimum": 0}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewed_at", "reviewer_role"],
+      "properties": {
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "reviewer_role": {"type": "string", "enum": ["maintainer", "security", "policy", "engineering"]}
+      }
+    }
+  }
+}

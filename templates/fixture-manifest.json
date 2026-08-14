@@ -1,0 +1,27 @@
+{
+  "captured_at": "2026-08-13T00:00:00Z",
+  "evidence_class": "verified-current",
+  "files": [
+    {
+      "content_type": "application/json",
+      "path": "fixture-data/static-champion.json",
+      "sha256": "3f091f015f4494648a5ace4ca2029316c2fac1b4cf3c18c0d83ef05fb2f32e53"
+    }
+  ],
+  "fixture_id": "data-dragon-champion",
+  "provenance": {
+    "attribution": "Riot Games Data Dragon static data",
+    "license_or_terms_url": "https://developer.riotgames.com/docs/lol",
+    "source_id": "data-dragon-static",
+    "source_url": "https://ddragon.leagueoflegends.com/cdn/versions.json"
+  },
+  "review": {
+    "fail_age_days": 365,
+    "max_age_days": 90,
+    "reviewed_at": "2026-08-13T00:00:00Z"
+  },
+  "sanitized": true,
+  "schema_id": "fixture-manifest",
+  "source_class": "static_data",
+  "version": "1.0.0"
+}

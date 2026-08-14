@@ -1,0 +1,12 @@
+{
+  "name": "league-api-engineering",
+  "version": "2.0.0",
+  "description": "Evidence-led, policy-safe engineering guidance for League of Legends data integrations.",
+  "author": {
+    "name": "League API Engineering contributors"
+  },
+  "license": "MIT",
+  "skills": [
+    "./"
+  ]
+}

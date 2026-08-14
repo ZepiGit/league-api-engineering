@@ -1,0 +1,17 @@
+{
+  "name": "league-api-engineering-marketplace",
+  "owner": {
+    "name": "League API Engineering contributors"
+  },
+  "metadata": {
+    "description": "Product-neutral, evidence-led League of Legends API engineering skill."
+  },
+  "plugins": [
+    {
+      "name": "league-api-engineering",
+      "source": "./",
+      "description": "Evidence-led, policy-safe engineering guidance for League of Legends data integrations.",
+      "version": "2.0.0"
+    }
+  ]
+}
