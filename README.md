@@ -22,16 +22,25 @@ It acts as an engineering companion that helps an agent choose an appropriate so
 
 ---
 
-## 📱 Was man mit dem Skill bauen kann
+## 📱 Built with League API Engineering
 
-Der Skill hilft KI-Agenten, stabile und korrekte Architektur-Entscheidungen bei der Integration von League of Legends APIs zu treffen. 
-Hier ist ein Beispiel einer Companion-App, die durch strukturierte Planung mit Hilfe der Skill-Richtlinien umgesetzt wurde:
+This skill provides AI agents with the architectural boundaries and provider routing needed to build production-grade League integrations. 
+Below is an example of a **Live-Tracking Companion App** designed and built entirely through structured planning with this skill:
 
-<p float="left">
-  <img src="assets/example1.webp" width="400" />
-  <img src="assets/example2.webp" width="400" /> 
-</p>
----
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <b>Live Match Recommendations</b><br><br>
+        <img src="assets/example1.webp" width="350" alt="LoL Companion Live Match View" />
+      </td>
+      <td align="center">
+        <b>Runes & Skill Build Insights</b><br><br>
+        <img src="assets/example2.webp" width="350" alt="LoL Companion Runes and Item Build" />
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## 🎯 What it covers
 
