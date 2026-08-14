@@ -32,11 +32,15 @@ Below is an example of a **Live-Tracking Companion App** designed and built enti
     <tr>
       <td align="center">
         <b>Live Match Recommendations</b><br><br>
-        <img src="assets/example1.webp" width="350" alt="LoL Companion Live Match View" />
+        <img src="assets/example1.webp" width="280" alt="LoL Companion Live Match View" />
       </td>
       <td align="center">
         <b>Runes & Skill Build Insights</b><br><br>
-        <img src="assets/example2.webp" width="350" alt="LoL Companion Runes and Item Build" />
+        <img src="assets/example2.webp" width="280" alt="LoL Companion Runes and Item Build" />
+      </td>
+      <td align="center">
+        <b>Post-Match Details</b><br><br>
+        <img src="assets/example3.webp" width="280" alt="LoL Companion Match History Details" />
       </td>
     </tr>
   </table>
