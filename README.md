@@ -22,30 +22,6 @@ It acts as an engineering companion that helps an agent choose an appropriate so
 
 ---
 
-## 📱 Built with League API Engineering
-
-This skill provides AI agents with the architectural boundaries and provider routing needed to build production-grade League integrations. 
-Below is an example of a **Live-Tracking Companion App** designed and built entirely through structured planning with this skill:
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <b>Live Match Recommendations</b><br><br>
-        <img src="assets/example1.webp" width="280" alt="LoL Companion Live Match View" />
-      </td>
-      <td align="center">
-        <b>Runes & Skill Build Insights</b><br><br>
-        <img src="assets/example2.webp" width="280" alt="LoL Companion Runes and Item Build" />
-      </td>
-      <td align="center">
-        <b>Post-Match Details</b><br><br>
-        <img src="assets/example3.webp" width="280" alt="LoL Companion Match History Details" />
-      </td>
-    </tr>
-  </table>
-</div>
-
 ## 🎯 What it covers
 
 - 🔌 **Source Selection:** Riot Web APIs, Data Dragon, LCU, Live Client Data, and CommunityDragon.
@@ -106,7 +82,7 @@ For a standalone source assessment, adapter contract, or fixture, use each scrip
 
 ## 📦 Package boundaries
 
-This package has no required dependency on a particular League application or repository. The optional [`case-study-lolcompanion.md`](references/case-study-lolcompanion.md) is a bounded example, not an installation requirement.
+This package has no required dependency on a particular League application or repository.
 
 ## 📄 License
 

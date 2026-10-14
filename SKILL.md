@@ -64,6 +64,5 @@ Do not label an assumption as verified. Do not call a source safe merely because
 - Official and local source choices: [`riot-web-apis.md`](references/riot-web-apis.md), [`lcu.md`](references/lcu.md), [`live-client-data.md`](references/live-client-data.md), [`data-dragon.md`](references/data-dragon.md), [`communitydragon.md`](references/communitydragon.md).
 - External sources and product policy: [`third-party-providers.md`](references/third-party-providers.md), [`policy-and-product-gates.md`](references/policy-and-product-gates.md).
 - Engineering controls: [`adapter-contract.md`](references/adapter-contract.md), [`caching-and-fallbacks.md`](references/caching-and-fallbacks.md), [`testing-and-canaries.md`](references/testing-and-canaries.md).
-- Optional bounded example: [`case-study-lolcompanion.md`](references/case-study-lolcompanion.md).
 
 Run `python scripts/validate.py .` from the package root before publishing when the validator is present.
